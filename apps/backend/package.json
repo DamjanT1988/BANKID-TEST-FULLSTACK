@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "private": true,
+  "scripts": {
+    "start:dev": "nest start --watch"
+  },
+  "dependencies": {
+    "@nestjs/common": "latest",
+    "@nestjs/core": "latest",
+    "@nestjs/platform-express": "latest",
+    "reflect-metadata": "latest",
+    "rxjs": "latest",
+    "pg": "latest",
+    "typeorm": "latest",
+    "ioredis": "latest",
+    "zod": "latest",
+    "@nestjs/config": "latest",
+    "@nestjs/swagger": "latest",
+    "class-transformer": "latest",
+    "class-validator": "latest",
+    "axios": "latest"
+  }
+}

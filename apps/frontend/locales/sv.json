@@ -1,0 +1,8 @@
+{
+  "login": "Logga in med BankID",
+  "cancel": "Avbryt",
+  "restart": "Starta om",
+  "complete": "Inloggning klar!",
+  "signPrompt": "Vänligen signera i din BankID-app",
+  "error": "Ett fel inträffade"
+}

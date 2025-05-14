@@ -1,0 +1,8 @@
+{
+  "login": "Login with BankID",
+  "cancel": "Cancel",
+  "restart": "Restart",
+  "complete": "Login complete!",
+  "signPrompt": "Please sign in your BankID app",
+  "error": "An error occurred"
+}
