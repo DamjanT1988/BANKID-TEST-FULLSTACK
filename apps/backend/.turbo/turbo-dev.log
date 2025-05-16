@@ -1,11 +1,11 @@
 
 > dev
-> npx nest start --watch
+> npm run start:dev
 
-npm ERR! could not determine executable to run
 
-npm ERR! A complete log of this run can be found in: C:\Users\Damja\npm-cache\_logs\2025-05-16T18_18_43_844Z-debug-0.log
-npm ERR! Lifecycle script `dev` failed with error: 
-npm ERR! Error: command failed 
-npm ERR!   in workspace: backend 
-npm ERR!   at location: C:\Users\Damja\Dropbox\ARBETE\GIDDIR\APP1\BANKID-TEST-FULLSTACK\apps\backend 
+> start:dev
+> nest start --watch
+
+
+[48;2;210;0;75m[1m[38;2;0;0;0m Error [39m[22m[49m Could not find TypeScript configuration file "tsconfig.json". Please, ensure that you are running this command in the appropriate directory (inside Nest workspace).
+
