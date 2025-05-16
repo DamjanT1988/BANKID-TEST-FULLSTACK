@@ -1,2 +1,7 @@
-const { i18n } = require('./i18n/config');
-module.exports = { i18n };
+/** @type {import('next').NextConfig} */
+module.exports = {
+  i18n: {
+    locales: ['sv', 'en'],
+    defaultLocale: 'sv',
+  },
+};

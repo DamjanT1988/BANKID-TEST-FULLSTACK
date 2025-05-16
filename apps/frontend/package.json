@@ -7,16 +7,19 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "latest",
-    "zustand": "latest",
-    "zod": "latest",
-    "i18next": "latest",
-    "react-i18next": "latest",
-    "react-aria": "latest",
     "axios": "latest",
-    "qrcode.react": "latest"
+    "i18next": "latest",
+    "next": "latest",
+    "qrcode.react": "latest",
+    "react": "latest",
+    "react-aria": "latest",
+    "react-dom": "latest",
+    "react-i18next": "latest",
+    "tailwindcss": "latest",
+    "zod": "latest",
+    "zustand": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.4"
   }
 }

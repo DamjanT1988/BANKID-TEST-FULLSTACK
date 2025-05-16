@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 import type { StatusResponse } from '../../packages/dto/session.dto';
 
 interface SessionState {
@@ -14,7 +14,7 @@ const useSessionStore = create<SessionState>((set) => ({
   status: null,
   setOrderRef: (orderRef) => set({ orderRef }),
   setStatus: (status) => set({ status }),
-  clear: () => set({ orderRef: null, status: null })
+  clear: () => set({ orderRef: null, status: null }),
 }));
 
 export default useSessionStore;

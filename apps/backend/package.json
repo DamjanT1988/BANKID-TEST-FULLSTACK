@@ -1,23 +1,31 @@
 {
-  "name": "backend",
+   "name": "backend",
   "private": true,
   "scripts": {
-    "start:dev": "nest start --watch"
+    "start:dev": "nest start --watch",
+    "dev":       "npm run start:dev"
   },
-  "dependencies": {
-    "@nestjs/common": "latest",
-    "@nestjs/core": "latest",
-    "@nestjs/platform-express": "latest",
-    "reflect-metadata": "latest",
-    "rxjs": "latest",
-    "pg": "latest",
-    "typeorm": "latest",
-    "ioredis": "latest",
-    "zod": "latest",
-    "@nestjs/config": "latest",
-    "@nestjs/swagger": "latest",
-    "class-transformer": "latest",
-    "class-validator": "latest",
-    "axios": "latest"
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.7"
   }
 }
