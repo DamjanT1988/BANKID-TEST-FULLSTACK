@@ -1,31 +1,42 @@
 {
    "name": "backend",
-  "private": true,
-  "scripts": {
-    "start:dev": "nest start --watch",
-    "dev":       "npm run start:dev"
-  },
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
-  "devDependencies": {
-    "@nestjs/cli": "^11.0.7"
-  }
+   "private": true,
+   "scripts": {
+      "start:dev": "nest start --watch",
+      "dev": "npm run start:dev",
+      "build": "tsc -p tsconfig.json"
+   },
+   "compilerOptions": {
+      "module": "commonjs",
+      "declaration": true,
+      "removeComments": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "target": "es2017",
+      "sourceMap": true,
+      "outDir": "./dist",
+      "baseUrl": "./",
+      "incremental": true
+   },
+   "include": [
+      "src/**/*.ts"
+   ],
+   "exclude": [
+      "node_modules",
+      "dist"
+   ],
+   "devDependencies": {
+      "@nestjs/cli": "^11.0.7"
+   },
+   "dependencies": {
+      "@nestjs/config": "^4.0.2",
+      "@nestjs/swagger": "^11.2.0",
+      "@nestjs/typeorm": "^11.0.0",
+      "axios": "^1.9.0",
+      "ioredis": "^5.6.1",
+      "nestjs-i18n": "^10.5.1",
+      "uuid": "^11.1.0",
+      "zod": "^3.24.4"
+   }
 }

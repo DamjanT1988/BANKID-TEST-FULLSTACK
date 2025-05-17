@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { BankIdModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.service';
+import { UserModule } from './user/user.module';
 import { i18nConfig } from './i18n/config';
 
 @Module({

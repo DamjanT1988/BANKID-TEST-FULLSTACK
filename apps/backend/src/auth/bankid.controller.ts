@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { BankIdService } from './bankid.service';
 import { z } from 'zod';
-import { Prisma } from '@prisma/client';
+//import { Prisma } from '@prisma/client';
 
 const InitiateDto = z.object({ personNumber: z.string() });
 

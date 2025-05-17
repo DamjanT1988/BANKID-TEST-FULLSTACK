@@ -1,9 +1,13 @@
 # Node modules
 node_modules
+
 # Turborepo cache (root and any workspaces)
 .turbo/
 **/.turbo/
+apps/frontend/.turbo/
+apps/backend/.turbo/
 
 # Next.js build output
 apps/frontend/.next/
 **/.next/
+

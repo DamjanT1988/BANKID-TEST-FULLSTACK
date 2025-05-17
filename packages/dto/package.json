@@ -1,0 +1,6 @@
+{
+  "name": "@bankid/dto",
+  "version": "1.0.0",
+  "main": "session.dto.ts",
+  "types": "session.dto.ts"
+}

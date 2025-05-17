@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { StatusResponse } from '../../packages/dto/session.dto';
+import type { StatusResponse } from '@bankid/dto/session.dto';
 
 interface SessionState {
   orderRef: string | null;

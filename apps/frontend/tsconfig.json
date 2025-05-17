@@ -1,5 +1,14 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "isolatedModules": true
+  },
+/*  "compilerOptions": {
     "target": "ES2017",
     "lib": [
       "dom",
@@ -16,8 +25,12 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
-  },
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@dto/*": ["../../packages/dto/*"]
+    }
+  },*/
   "include": [
     "next-env.d.ts",
     "**/*.ts",

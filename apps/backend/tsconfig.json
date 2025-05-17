@@ -10,6 +10,8 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "incremental": true
   },
   "include": ["src/**/*.ts"],

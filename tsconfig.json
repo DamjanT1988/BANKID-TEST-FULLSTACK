@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    // Base URL for non-relative paths
+    "baseUrl": ".",
+    // Map @dto/* → packages/dto/*
+    "paths": {
+      "@dto/*": ["packages/dto/*"]
+    }
+  },
+  // Make sure TS picks up both apps and packages
+  "include": ["apps/**/*", "packages/**/*"]
+}

@@ -1,0 +1,13 @@
+** DOCKER
+* dev env
+cd docker
+docker-compose up -d
+cd ..
+
+docker-compose down
+docker compose -f docker/docker-compose.yml down
+
+**NPM
+npm install
+
+npx turbo run dev
