@@ -8,6 +8,7 @@ COPY stores ./stores
 COPY lib ./lib
 COPY i18n ./i18n
 COPY locales ./locales
+COPY tsconfig.json ./
 RUN npm install \
  && npm run build
 

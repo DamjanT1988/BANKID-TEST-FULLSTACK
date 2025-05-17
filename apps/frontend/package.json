@@ -17,7 +17,8 @@
     "react-i18next": "latest",
     "tailwindcss": "latest",
     "zod": "latest",
-    "zustand": "latest"
+    "zustand": "latest",
+    "@dto/session.dto": "file:../packages/dto"
   },
   "devDependencies": {
     "@types/react": "19.1.4"

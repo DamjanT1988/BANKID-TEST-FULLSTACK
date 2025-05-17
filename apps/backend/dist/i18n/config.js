@@ -6,7 +6,7 @@ const path = require("path");
 exports.i18nConfig = nestjs_i18n_1.I18nModule.forRoot({
     fallbackLanguage: 'sv',
     loaderOptions: {
-        path: path.join(__dirname, '/../../i18n/'),
+        path: path.join(__dirname, '/../../src/i18n/'),
         watch: true,
     },
     resolvers: [new nestjs_i18n_1.QueryResolver(['lang']), new nestjs_i18n_1.AcceptLanguageResolver()],
