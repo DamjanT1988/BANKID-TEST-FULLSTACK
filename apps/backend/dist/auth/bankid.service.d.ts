@@ -4,7 +4,7 @@ export declare class BankIdService {
     private redis;
     private userService;
     constructor(redis: Redis, userService: UserService);
-    initiate(personNumber: string): Promise<any>;
+    initiate(personNumber: string): Promise<string>;
     status(orderRef: string): Promise<{
         status: string;
     }>;

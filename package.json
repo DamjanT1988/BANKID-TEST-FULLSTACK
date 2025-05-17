@@ -9,5 +9,6 @@
   },
   "devDependencies": {
     "turbo": "latest"
-  }
+  },
+    "include": ["apps/**/*", "packages/**/*"]
 }

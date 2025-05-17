@@ -3,7 +3,7 @@ export declare class BankIdController {
     private readonly svc;
     constructor(svc: BankIdService);
     login(body: any): Promise<{
-        orderRef: any;
+        orderRef: string;
     }>;
     status(orderRef: string): Promise<{
         status: string;

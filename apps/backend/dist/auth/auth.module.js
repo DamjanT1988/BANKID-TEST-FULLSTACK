@@ -10,14 +10,14 @@ exports.BankIdModule = void 0;
 const common_1 = require("@nestjs/common");
 const bankid_service_1 = require("./bankid.service");
 const bankid_controller_1 = require("./bankid.controller");
-const user_service_1 = require("../user/user.service");
+const user_module_1 = require("../user/user.module");
 const ioredis_1 = require("ioredis");
 let BankIdModule = class BankIdModule {
 };
 exports.BankIdModule = BankIdModule;
 exports.BankIdModule = BankIdModule = __decorate([
     (0, common_1.Module)({
-        imports: [user_service_1.UserModule],
+        imports: [user_module_1.UserModule],
         controllers: [bankid_controller_1.BankIdController],
         providers: [
             bankid_service_1.BankIdService,

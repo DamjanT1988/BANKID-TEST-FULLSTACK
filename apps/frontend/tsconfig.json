@@ -6,9 +6,20 @@
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
-/*  "compilerOptions": {
+  /*  "compilerOptions": {
     "target": "ES2017",
     "lib": [
       "dom",
@@ -34,7 +45,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "../../packages/dto/**/*.ts"
   ],
   "exclude": [
     "node_modules"

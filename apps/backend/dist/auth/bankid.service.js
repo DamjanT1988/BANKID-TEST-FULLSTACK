@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BankIdService = void 0;
 const common_1 = require("@nestjs/common");
@@ -43,6 +42,7 @@ exports.BankIdService = BankIdService;
 exports.BankIdService = BankIdService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('REDIS')),
-    __metadata("design:paramtypes", [typeof (_a = typeof ioredis_1.default !== "undefined" && ioredis_1.default) === "function" ? _a : Object, user_service_1.UserService])
+    __metadata("design:paramtypes", [ioredis_1.default,
+        user_service_1.UserService])
 ], BankIdService);
 //# sourceMappingURL=bankid.service.js.map
