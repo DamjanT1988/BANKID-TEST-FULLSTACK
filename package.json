@@ -1,0 +1,7 @@
+{
+  "name": "bankid-monorepo",
+  "private": true,
+  "devDependencies": {
+    "turbo": "^1.3.0"
+  }
+}

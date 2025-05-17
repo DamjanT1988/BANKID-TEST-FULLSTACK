@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: bankid_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bankidDB
+    ports:
+    - 5432:5432
+    volumes:
+    - db-data:/var/lib/postgresql/data
+  redis:
+    image: redis:6
+    restart: always
+    ports:
+    - 6379:6379
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgres://bankid_user:password@db:5432/bankidDB
+      REDIS_URL: redis://redis:6379
+      BANKID_CERT_PATH: /app/certs/test-cert.pfx
+      BANKID_KEY_PATH: /app/certs/test-cert.pem
+    depends_on:
+    - db
+    - redis
+    ports:
+    - 3001:3001
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_BACKEND_URL: http://localhost:3001
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:3001
+    depends_on:
+    - backend
+    ports:
+    - 3000:3000
+volumes:
+  db-data: null
