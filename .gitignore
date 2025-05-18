@@ -1,1 +1,64 @@
-node_modules
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+apps/backend/dist/
+apps/frontend/.next/
+apps/frontend/out/
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Docker
+**/docker-compose.override.yml
+
+# TypeScript
+*.tsbuildinfo
+
+# Certificates (placeholder)
+apps/backend/certs/*.pfx
+apps/backend/certs/*.pem
+
+# TurboRepo / Yarn PnP
+.turbo/
+.yarn/*
+!.yarn/patches/
+!.yarn/plugins/
+!.yarn/releases/
+!.yarn/sdks/
+!.yarn/versions/
+
+# Next.js
+apps/frontend/.next/
+apps/frontend/.vercel/
+
+# Docusaurus
+docs/build/
+
+# Misc
+coverage/
+.cache/

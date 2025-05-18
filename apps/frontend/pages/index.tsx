@@ -1,17 +1,20 @@
-// pages/index.tsx
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import create from 'zustand';
-import axios from 'axios';
+// apps/frontend/pages/index.tsx
+
+import { useEffect, useState, FormEvent } from 'react'
+import create from 'zustand'
+import axios from 'axios'
+import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 interface AuthState {
-  orderRef: string | null;
-  qrCodeUrl: string | null;
-  status: 'pending' | 'userSign' | 'complete' | 'failed';
-  hintCode: string | null;
-  timeLeft: number;
-  startAuth: (personalNumber: string) => void;
-  cancelAuth: () => void;
+  orderRef: string | null
+  qrCodeUrl: string | null
+  status: 'pending' | 'userSign' | 'complete' | 'failed'
+  hintCode: string | null
+  timeLeft: number
+  startAuth: (personalNumber: string) => void
+  cancelAuth: () => void
 }
 
 const useAuthStore = create<AuthState>((set, get) => ({
@@ -24,212 +27,234 @@ const useAuthStore = create<AuthState>((set, get) => ({
     const resp = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/initiate`,
       { personalNumber }
-    );
+    )
     set({
       orderRef: resp.data.orderRef,
       qrCodeUrl: resp.data.qrCodeUrl,
       status: 'pending',
       timeLeft: 300,
-    });
+    })
   },
   cancelAuth: async () => {
-    const { orderRef } = get();
+    const { orderRef } = get()
     if (orderRef) {
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/cancel`,
         { orderRef }
-      );
-      set({
-        orderRef: null,
-        qrCodeUrl: null,
-        status: 'pending',
-        hintCode: null,
-      });
+      )
+      set({ orderRef: null, qrCodeUrl: null, status: 'pending', hintCode: null })
     }
   },
-}));
+}))
 
 export default function Home() {
-  const {
-    orderRef,
-    qrCodeUrl,
-    status,
-    hintCode,
-    timeLeft,
-    startAuth,
-    cancelAuth,
-  } = useAuthStore();
-  const [personalNumber, setPersonalNumber] = useState('YYYYMMDDXXXX');
+  const { t, i18n } = useTranslation('common')
+  const { orderRef, qrCodeUrl, status, hintCode, timeLeft, startAuth, cancelAuth } =
+    useAuthStore()
+  const [personalNumber, setPersonalNumber] = useState('')
 
-  // Polling för status
+  // Poll status
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (orderRef && status !== 'complete') {
+    let interval: NodeJS.Timeout
+    if (orderRef && status !== 'complete' && status !== 'failed') {
       interval = setInterval(async () => {
         const resp = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/status`,
           { params: { orderRef } }
-        );
-        const { status: newStatus, hintCode: newHintCode } = resp.data;
-        useAuthStore.setState({ status: newStatus, hintCode: newHintCode });
-      }, 1000);
+        )
+        useAuthStore.setState({
+          status: resp.data.status,
+          hintCode: resp.data.hintCode,
+        })
+      }, 1000)
     }
-    return () => clearInterval(interval);
-  }, [orderRef, status]);
+    return () => clearInterval(interval)
+  }, [orderRef, status])
 
-  // Timer-nedräkning
+  // Countdown
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: NodeJS.Timeout
     if (orderRef && timeLeft > 0) {
-      timer = setTimeout(() => {
-        useAuthStore.setState({ timeLeft: timeLeft - 1 });
-      }, 1000);
+      timer = setTimeout(
+        () => useAuthStore.setState({ timeLeft: timeLeft - 1 }),
+        1000
+      )
     }
-    return () => clearTimeout(timer!);
-  }, [orderRef, timeLeft]);
+    return () => clearTimeout(timer!)
+  }, [orderRef, timeLeft])
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
-        {/* Header med logo */}
-        <header className="mb-6">
-          <Image
-            src="/patientme-logo.svg"
-            alt="PatientMe"
-            width={120}
-            height={32}
-            className="mx-auto"
-          />
-          <p className="text-gray-500 text-sm mt-2">
-            Din hälsa är vår prioritet.
-          </p>
-        </header>
-
-        {/* Titel och beskrivning */}
-        <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-          Välkommen till PatientMe
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Lås upp din hälsoresa med säker åtkomst till din medicinska
-          information.
-        </p>
-
-        {/* --- KONDITIONALT INNEHÅLL --- */}
-        {!orderRef ? (
-          /* Steg 1: Starta BankID-flow */
-          <>
-            <button
-              onClick={() => startAuth(personalNumber)}
-              className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
-            >
-              <Image
-                src="/bankid-logo.svg"
-                alt="BankID"
-                width={24}
-                height={24}
-                className="mr-2"
-              />
-              Logga in med BankID
-            </button>
-
-            {/* Separator */}
-            <div className="flex items-center my-6">
-              <span className="flex-grow border-t border-gray-300"></span>
-              <span className="mx-2 text-gray-500">Eller</span>
-              <span className="flex-grow border-t border-gray-300"></span>
-            </div>
-
-            {/* Alternativa inloggmetoder */}
-            <div className="grid grid-cols-2 gap-4">
-              <button className="flex items-center justify-center border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition">
-                <Image
-                  src="/google-logo.svg"
-                  alt="Google"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Google
-              </button>
-              <button className="flex items-center justify-center border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition">
-                <Image
-                  src="/apple-logo.svg"
-                  alt="Apple"
-                  width={20}
-                  height={20}
-                  className="mr-2"
-                />
-                Apple
-              </button>
-            </div>
-
-            {/* Villkorstext */}
-            <p className="text-xs text-gray-400 mt-6">
-              Genom att logga in bekräftar och godkänner du våra{' '}
-              <a href="/terms" className="underline">
-                Användarvillkor
-              </a>{' '}
-              och{' '}
-              <a href="/privacy" className="underline">
-                Integritetspolicy
-              </a>
-              .
-            </p>
-          </>
-        ) : status === 'pending' && qrCodeUrl ? (
-          /* Steg 2: Visa QR-kod + timer */
-          <div role="status" className="space-y-4">
-            <img
-              src={qrCodeUrl}
-              alt="BankID QR code"
-              className="mx-auto w-64 h-64"
-            />
-            <div className="text-gray-700">Tid kvar: {timeLeft} sekunder</div>
-            <div className="flex justify-center space-x-4">
-              {timeLeft < 30 && (
-                <button
-                  onClick={() => startAuth(personalNumber)}
-                  className="underline text-blue-600"
-                >
-                  Starta om
-                </button>
-              )}
-              <button
-                onClick={cancelAuth}
-                className="underline text-gray-600"
-              >
-                Avbryt
-              </button>
-            </div>
-          </div>
-        ) : status === 'userSign' ? (
-          /* Steg 3: Vänta på användarsignering */
-          <div role="alert" className="text-blue-600 font-medium">
-            Öppna BankID-appen och signera
-          </div>
-        ) : status === 'complete' ? (
-          /* Steg 4: Klar */
-          <div role="alert" className="text-green-600 font-bold">
-            Inloggad!
-          </div>
-        ) : (
-          /* Felhantering */
-          <div role="alert" className="text-red-600">
-            Fel uppstod.{' '}
-            <button
-              onClick={() => startAuth(personalNumber)}
-              className="underline"
-            >
-              Försök igen
-            </button>
-          </div>
-        )}
-
-        {/* Footer */}
-        <footer className="mt-8">
-          <p className="text-xs text-gray-400">Powered by Giddir</p>
-        </footer>
+    <div className="relative min-h-screen flex flex-col justify-between bg-gray-50">
+      {/* Language switcher */}
+      <div className="absolute top-4 right-4 flex space-x-2">
+        <button
+          onClick={() => i18n.changeLanguage('sv')}
+          className="text-sm text-gray-600 hover:text-gray-800"
+        >
+          SV
+        </button>
+        <button
+          onClick={() => i18n.changeLanguage('en')}
+          className="text-sm text-gray-600 hover:text-gray-800"
+        >
+          EN
+        </button>
       </div>
+
+      {/* Header */}
+      <header className="py-6">
+        <div className="max-w-md mx-auto text-center">
+          <Image src="/media/logo.png" alt="PatientMe" width={120} height={40} />
+          <p className="text-gray-500 mt-2 text-sm">{t('tagline')}</p>
+        </div>
+      </header>
+
+      {/* Main */}
+      <main className="flex-grow flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8 space-y-6">
+          <h1 className="text-2xl font-bold text-gray-800 text-center">
+            {t('welcomeTitle')}
+          </h1>
+          <p className="text-gray-600 text-sm text-center">{t('welcomeText')}</p>
+
+          {!orderRef ? (
+            <>
+              {/* Inloggningsformulär */}
+              <form
+                onSubmit={(e: FormEvent) => {
+                  e.preventDefault()
+                  startAuth(personalNumber)
+                }}
+                aria-label={String(t('login'))}
+                className="space-y-4"
+              >
+                <input
+                  type="text"
+                  value={personalNumber}
+                  onChange={(e) => setPersonalNumber(e.target.value)}
+                  placeholder={String(t('personalNumberPlaceholder'))}
+                  required
+                  className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="submit"
+                  className="w-full flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium"
+                >
+                  <Image
+                    src="/media/bankid-icon.png"
+                    alt="BankID"
+                    width={20}
+                    height={20}
+                  />
+                  <span>{t('login')}</span>
+                </button>
+              </form>
+
+              {/* Separator */}
+              <div className="flex items-center justify-center space-x-3 text-gray-400 text-sm">
+                <span className="block h-px bg-gray-300 flex-1" />
+                <span>{t('or')}</span>
+                <span className="block h-px bg-gray-300 flex-1" />
+              </div>
+
+              {/* Social login */}
+              <div className="grid grid-cols-2 gap-4">
+                <button className="flex items-center justify-center space-x-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
+                  <Image
+                    src="/media/google-logo.png"
+                    alt="Google"
+                    width={20}
+                    height={20}
+                  />
+                  <span className="text-gray-700 text-sm">Google</span>
+                </button>
+                <button className="flex items-center justify-center space-x-2 border border-gray-300 py-3 rounded-lg hover:bg-gray-50">
+                  <Image
+                    src="/media/apple-logo.png"
+                    alt="Apple"
+                    width={20}
+                    height={20}
+                  />
+                  <span className="text-gray-700 text-sm">Apple</span>
+                </button>
+              </div>
+
+              {/* Terms */}
+              <p className="text-xs text-gray-500 text-center">
+                {t('termsPrefix')}{' '}
+                <a href="#" className="underline">
+                  {t('terms')}
+                </a>{' '}
+                {t('and')}{' '}
+                <a href="#" className="underline">
+                  {t('privacy')}
+                </a>
+                .
+              </p>
+            </>
+          ) : status === 'pending' && qrCodeUrl ? (
+            <div className="text-center space-y-4" role="status">
+              <img
+                src={qrCodeUrl}
+                alt="BankID QR code"
+                className="mx-auto w-48 h-48"
+              />
+              <div>{t('timeoutLabel', { count: timeLeft })}</div>
+              <div className="space-x-4">
+                {timeLeft < 30 && (
+                  <button
+                    onClick={() => startAuth(personalNumber)}
+                    className="underline text-blue-600"
+                  >
+                    {t('restart')}
+                  </button>
+                )}
+                <button
+                  onClick={cancelAuth}
+                  className="underline text-gray-600"
+                >
+                  {t('cancel')}
+                </button>
+              </div>
+            </div>
+          ) : status === 'userSign' ? (
+            <div role="alert" className="text-center text-gray-800">
+              {t('openApp')}
+            </div>
+          ) : status === 'complete' ? (
+            <div role="alert" className="text-center text-green-600 font-bold">
+              {t('loggedIn')}
+            </div>
+          ) : (
+            <div role="alert" className="text-center text-red-600 font-bold">
+              {t('errorOccurred', { action: t('login') })}
+            </div>
+          )}
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="py-6">
+        <div className="max-w-md mx-auto text-center">
+          <p className="text-gray-400 text-xs mb-2">{t('poweredBy')}</p>
+          <Image
+            src="/media/gidir-logo.png"
+            alt="Gidir"
+            width={80}
+            height={24}
+          />
+        </div>
+      </footer>
     </div>
-  );
+  )
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'common'
+      ]))
+    }
+  }
 }

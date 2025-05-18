@@ -1,0 +1,19 @@
+{
+  "tagline": "Din hälsa är vår prioritet.",
+  "welcomeTitle": "Välkommen till PatientMe",
+  "welcomeText": "Lås upp din hälsoreesa med säker åtkomst till din medicinska information.",
+  "login": "Logga in med BankID",
+  "personalNumberPlaceholder": "YYYYMMDDNNNN",
+  "or": "Eller",
+  "timeoutLabel": "Tid kvar: {{count}} sekunder",
+  "restart": "Starta om tiden",
+  "cancel": "Avbryt",
+  "openApp": "Öppna BankID-appen och signera",
+  "loggedIn": "Inloggad!",
+  "errorOccurred": "Fel uppstod. {{action}}",
+  "termsPrefix": "Genom att logga in bekräftar och godkänner du våra",
+  "terms": "Användarvillkor",
+  "and": "och",
+  "privacy": "Integritetspolicy",
+  "poweredBy": "powered by"
+}
