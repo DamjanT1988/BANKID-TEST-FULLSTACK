@@ -1,21 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './user.entity';
+// apps/backend/src/user/user.service.ts
+
+import { Injectable } from '@nestjs/common'               // Marks the class as a provider for dependency injection
+import { InjectRepository } from '@nestjs/typeorm'         // Allows injecting a TypeORM repository
+import { Repository } from 'typeorm'                       // Generic repository interface
+import { User } from './user.entity'                       // User entity definition
 
 @Injectable()
 export class UserService {
   constructor(
+    // Inject the repository for the User entity
     @InjectRepository(User)
     private usersRepo: Repository<User>,
   ) {}
 
-  async findOrCreate(personalNumber: string) {
-    let user = await this.usersRepo.findOne({ where: { personalNumber } });
+  /**
+   * Finds an existing user by personal number or creates a new one.
+   * @param personalNumber - The unique personal number identifier
+   * @returns The found or newly created User entity
+   */
+  async findOrCreate(personalNumber: string): Promise<User> {
+    // Try to find a user with the given personalNumber
+    let user = await this.usersRepo.findOne({ where: { personalNumber } })
+
+    // If no user exists, create and save a new one
     if (!user) {
-      user = this.usersRepo.create({ personalNumber });
-      await this.usersRepo.save(user);
+      // Instantiate a new User entity object
+      user = this.usersRepo.create({ personalNumber })
+      // Persist the new User record to the database
+      await this.usersRepo.save(user)
     }
-    return user;
+
+    // Return the existing or newly saved user
+    return user
   }
 }
