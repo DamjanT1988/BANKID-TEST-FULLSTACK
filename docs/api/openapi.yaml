@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: BankID API
+  version: 1.0.0
+  description: |
+    API for BankID authentication based on the BANKID-V5 (TEST-FULLSTACK) implementation.
+servers:
+  - url: http://localhost:3001
+    description: Local development server
+
+paths:
+  /auth/initiate:
+    post:
+      tags:
+        - Auth
+      summary: Initiate a new BankID authentication session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitiateRequest'
+      responses:
+        '200':
+          description: Session initiated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InitiateResponse'
+
+  /auth/status:
+    get:
+      tags:
+        - Auth
+      summary: Retrieve status of an existing BankID session
+      parameters:
+        - name: orderRef
+          in: query
+          description: The `orderRef` received when initiating the session
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current session status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '404':
+          description: Session not found
+
+  /auth/cancel:
+    post:
+      tags:
+        - Auth
+      summary: Cancel an existing BankID session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelRequest'
+      responses:
+        '200':
+          description: Session cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelResponse'
+        '404':
+          description: Session not found
+
+components:
+  schemas:
+    InitiateRequest:
+      type: object
+      properties:
+        personalNumber:
+          type: string
+          description: Swedish personal identity number (12 digits, YYYYMMDDXXXX)
+          minLength: 12
+          maxLength: 12
+      required:
+        - personalNumber
+
+    InitiateResponse:
+      type: object
+      properties:
+        orderRef:
+          type: string
+          format: uuid
+          description: Unique reference for this authentication session
+        qrCodeUrl:
+          type: string
+          format: uri
+          description: URL to the generated QR code for BankID autostart
+      required:
+        - orderRef
+        - qrCodeUrl
+
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - pending
+            - userSign
+            - complete
+          description: |
+            - **pending**: waiting for user to start the BankID app  
+            - **userSign**: user has opened the BankID app and should confirm  
+            - **complete**: authentication completed  
+        hintCode:
+          type: string
+          nullable: true
+          description: |
+            A hint code returned by BankID (e.g., “SKICKA”) when in **userSign** state; `null` otherwise
+      required:
+        - status
+
+    CancelRequest:
+      type: object
+      properties:
+        orderRef:
+          type: string
+          format: uuid
+          description: The reference of the session to cancel
+      required:
+        - orderRef
+
+    CancelResponse:
+      type: object
+      properties:
+        cancelled:
+          type: boolean
+          description: Indicates whether the session was successfully cancelled
+      required:
+        - cancelled
