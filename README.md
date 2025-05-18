@@ -13,9 +13,9 @@ Detta projekt är en enkel testintegration mot BankID för autentisering. Det in
 │   └── frontend       Next.js-app med React, Tailwind CSS och i18next
 │       ├── pages      Sidor (login, callback)
 │       └── public     Static assets
-├── docs               Docusaurus-dokumentation
-├── docker-compose.yml Docker Compose för alla tjänster (db, redis, backend, frontend)
-├── .env.example       Exempel på miljövariabler
+├── docs               Docusaurus-dokumentation och OpenAPI
+├── docker-compose.yml Docker Compose för alla tjänster (db [PostgreSQL], redis, backend, frontend)
+├── .env.example       Exempel på miljövariabler (ändra vid behov och .env)
 └── README.md          Denna fil
 ```
 
@@ -56,7 +56,7 @@ Detta projekt är en enkel testintegration mot BankID för autentisering. Det in
 
 ### Starta Turbo-pipeline
 
-0. ställ in env.-filen
+(0. ställ in env.-filen om db-koppling)
 
 1. npm install
 

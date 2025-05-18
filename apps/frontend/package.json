@@ -8,6 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-aria/button": "^3.13.0",
+    "@react-aria/focus": "^3.20.2",
+    "@react-aria/label": "^3.7.17",
+    "@react-aria/textfield": "^3.17.2",
+    "@react-aria/utils": "^3.28.2",
     "axios": "^1.4.0",
     "i18next": "^22.4.0",
     "lucide-react": "^0.255.0",
