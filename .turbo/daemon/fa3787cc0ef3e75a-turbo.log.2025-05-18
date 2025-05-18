@@ -6766,3 +6766,20 @@
 2025-05-18T14:20:22.790450Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
 2025-05-18T14:20:22.883927Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo\\daemon\\fa3787cc0ef3e75a-turbo.log.2025-05-18")}
 2025-05-18T14:20:22.883949Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-05-18T15:59:06.056672Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo")}
+2025-05-18T15:59:06.056702Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-05-18T16:00:48.558601Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("turbo.json")}
+2025-05-18T16:00:48.558616Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(All)
+2025-05-18T16:02:21.661832Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\backend\\package.json")}
+2025-05-18T16:02:21.661876Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2025-05-18T16:06:39.752631Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("package.json")}
+2025-05-18T16:06:39.752677Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(All)
+2025-05-18T16:06:39.758334Z  WARN build:build_inner: turborepo_repository::package_graph::builder: Unable to calculate transitive closures: Workspace 'apps/frontend' not found in lockfile
+2025-05-18T16:06:47.756168Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\frontend\\.next")}
+2025-05-18T16:06:47.756192Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("frontend"), path: AnchoredSystemPathBuf("apps\\frontend") }}))
+2025-05-18T16:06:48.052612Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\frontend\\.next")}
+2025-05-18T16:06:48.052654Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("frontend"), path: AnchoredSystemPathBuf("apps\\frontend") }}))
+2025-05-18T16:06:48.174209Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2025-05-18T16:06:48.174331Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("apps\\frontend\\.next")}
+2025-05-18T16:06:48.174342Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("frontend"), path: AnchoredSystemPathBuf("apps\\frontend") }}))
+2025-05-18T16:06:48.174366Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun

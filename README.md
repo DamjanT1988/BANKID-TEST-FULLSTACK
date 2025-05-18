@@ -54,6 +54,12 @@ Detta projekt är en enkel testintegration mot BankID för autentisering. Det in
 
 ## Utveckling
 
+### Starta Turbo-pipeline
+
+1. npm install
+
+2. npx turbo run dev
+
 ### Starta backend
 1. Gå till backend-katalogen:
    ```bash

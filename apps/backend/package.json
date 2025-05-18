@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "scripts": {
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
     "build": "nest build"
   },
   "dependencies": {

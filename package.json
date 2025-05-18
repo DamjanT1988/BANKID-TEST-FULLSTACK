@@ -1,6 +1,9 @@
 {
   "name": "bankid-monorepo",
   "private": true,
+  "workspaces": [
+   "apps/*"
+ ],
   "devDependencies": {
     "turbo": "^1.3.0"
   }
