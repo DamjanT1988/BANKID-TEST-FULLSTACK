@@ -13,26 +13,31 @@ export class AuthService {
 
   async initiate(personalNumber: string) {
     const orderRef = uuidv4();
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+    const autostartUrl = `bankid:///?autostarttoken=${orderRef}&redirect=${encodeURIComponent(
+      frontendUrl + '/callback'
+    )}`;
+    const qrData = encodeURIComponent(autostartUrl);
+    const qrCode = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qrData}`;
     const session = this.sessionsRepo.create({
       orderRef,
       personalNumber,
-      qrCode: `https://api.qrserver.com/v1/create-qr-code/?data=${orderRef}`,
+      qrCode,
       status: 'pending',
       expiresAt: new Date(Date.now() + 5 * 60 * 1000),
     });
     await this.sessionsRepo.save(session);
-    return { orderRef, qrCodeUrl: session.qrCode };
+    return { orderRef, qrCodeUrl: qrCode };
   }
 
   async status(orderRef: string) {
     const session = await this.sessionsRepo.findOne({ where: { orderRef } });
     if (!session) throw new NotFoundException();
-    let hintCode = null;
-    // For test: after 10s switch to userSign, after 20s complete
-    const age = Date.now() - session.expiresAt.getTime() + 5 * 60 * 1000;
-    if (age > 20000) {
+    let hintCode: string | null = null;
+    const elapsed = Date.now() - (session.expiresAt.getTime() - 5 * 60 * 1000);
+    if (elapsed > 20000) {
       session.status = 'complete';
-    } else if (age > 10000) {
+    } else if (elapsed > 10000) {
       session.status = 'userSign';
       hintCode = 'SKICKA';
     }

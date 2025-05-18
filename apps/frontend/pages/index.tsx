@@ -58,9 +58,9 @@ export default function Home() {
   }, [orderRef, timeLeft]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
       {!orderRef ? (
-        <form
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-sm w-full"><form
           onSubmit={(e) => {
             e.preventDefault();
             startAuth(personalNumber);
@@ -77,12 +77,12 @@ export default function Home() {
             onChange={(e) => setPersonalNumber(e.target.value)}
             placeholder="YYYYMMDDXXXX"
             aria-required="true"
-            className="border p-2 rounded"
+            className="w-full border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button type="submit" className="ml-2 px-4 py-2 bg-blue-600 text-white rounded">
+          <button type="submit" className="w-full mt-4 px-4 py-3 bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 text-white font-semibold rounded-lg">
             Logga in
           </button>
-        </form>
+        </form></div>
       ) : status === 'pending' && qrCodeUrl ? (
         <div className="text-center" role="status">
           <img src={qrCodeUrl} alt="BankID QR code" className="mx-auto" />
