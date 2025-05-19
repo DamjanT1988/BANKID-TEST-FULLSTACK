@@ -131,7 +131,19 @@ This project is a simple test integration with BankID for authentication. It inc
 - **Multiple languages**: Swedish and English languages by i18n - implemented.
 - **UI design after PatientMe**: "Pretty" UI ready for the proper GIDDIR media files in public/ folder.
 
-### Summary of Gaps
+### Implementations and Beyond
+
+In addition to meeting the core requirements, this project includes several enhancements:
+
+- **Monorepo Architecture (Turborepo)**: Unified codebase for frontend, backend, and docs, simplifying development workflows.
+- **State Management with Zustand**: Predictable and minimal-overhead state management in the frontend.
+- **Automatic OpenAPI Documentation**: Swagger/OpenAPI spec is auto-generated and served via `/api-docs`.
+- **Comprehensive i18n**: Internationalization integrated in both backend (NestJS i18n) and frontend (next-i18next) for Swedish and English support.
+- **Infrastructure as Code**: Docker Compose orchestrates all services (PostgreSQL, Redis, backend, frontend) for a one-command local setup.
+- **Type-Safe Data Validation (Zod)**: Ensures robust runtime validation of all incoming data in controllers and API endpoints.
+- **Initial Accessibility Hooks**: React Aria imports establish a foundation for future WCAG-compliant accessibility improvements.
+
+## Summary of Gaps
 1. Timer restart & QR regeneration when <30 s remain
 2. Injection of custom markdown text into the BankID app challenge
 3. Redis/ValKey integration
