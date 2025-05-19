@@ -1,4 +1,5 @@
 # BankID Implementation
+Made by Damjan Tosic
 
 ## Overview
 This project is a simple test integration with BankID for authentication. It includes a backend (NestJS), a frontend (Next.js), and a documentation section with Docusaurus.
@@ -127,6 +128,8 @@ This project is a simple test integration with BankID for authentication. It inc
 - **Local dev (Postgres+Redis)**: Docker Compose includes Postgres, but Redis is not enabled.
 - **Documentation**: Docusaurus and OpenAPI specs are present under `docs/`.
 - **User creation/linking**: `UserService` handles creation/fetching of users based on personal number.
+- **Multiple languages**: Swedish and English languages by i18n - implemented.
+- **UI design after PatientMe**: "Pretty" UI ready for the proper GIDDIR media files in public/ folder.
 
 ### Summary of Gaps
 1. Timer restart & QR regeneration when <30 s remain
